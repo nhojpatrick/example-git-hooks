@@ -44,6 +44,11 @@
 					<groupId>com.rudikershaw.gitbuildhook</groupId>
 					<artifactId>git-build-hook-maven-plugin</artifactId>
 					<version>3.0.0</version>
+					<configuration>
+						<installHooks>
+							<pre-commit>pre-commit-email-hook</pre-commit>
+						</installHooks>
+					</configuration>
 				</plugin>
 				<plugin>
 					<groupId>io.takari</groupId>
