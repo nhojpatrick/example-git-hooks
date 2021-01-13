@@ -45,6 +45,10 @@
 					<artifactId>git-build-hook-maven-plugin</artifactId>
 					<version>3.0.0</version>
 					<configuration>
+						<gitConfig>
+							<pull.rebase>true</pull.rebase>
+							<push.default>current</push.default>
+						</gitConfig>
 						<installHooks>
 							<pre-commit>pre-commit-email-hook</pre-commit>
 						</installHooks>
@@ -131,6 +135,13 @@
 				<groupId>com.rudikershaw.gitbuildhook</groupId>
 				<artifactId>git-build-hook-maven-plugin</artifactId>
 				<executions>
+					<execution>
+						<id>git-hooks-configure</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>configure</goal>
+						</goals>
+					</execution>
 					<execution>
 						<id>git-hooks-install</id>
 						<phase>validate</phase>
