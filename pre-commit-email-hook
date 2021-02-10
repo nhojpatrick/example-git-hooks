@@ -23,6 +23,36 @@ function checkEmail() {
   fi
 }
 
+function checkName() {
+
+  NAME=${1}
+
+  # checks name for any leading, trailing or multiple whitespace matches
+  NAME_WHITESPACE='((^ )|( $)|(  +)|( +(.*) +))'
+
+  if [[ ${NAME} =~ $NAME_WHITESPACE ]]
+  then
+    echo 'name invalid whitespace, leading, trailing or multiple '\'${NAME}\';
+    echo '';
+    exit 1;
+  fi
+
+  # checks name if space then only an initial surname match
+  SURNAME_INITIAL='\.*([:space:][^:space:][^:space:])$'
+
+  if [[ ${NAME} =~ $SURNAME_INITIAL ]]
+  then
+    echo $BASH_REMATCH[0]
+    echo $BASH_REMATCH[1]
+    echo $BASH_REMATCH[2]
+    echo $BASH_REMATCH[3]
+    echo $BASH_REMATCH[4]
+    echo 'surname can only be an initial character '\'${NAME}\';
+    echo '';
+    exit 1;
+  fi
+}
+
 # Check tests all live within a .tests. sub package to prep for Java 11
 function checkJava11TestsPrep() {
   CNT=`find . -type f | grep src/test/java | grep -v tests | wc -l`
@@ -35,4 +65,5 @@ function checkJava11TestsPrep() {
 }
 
 checkEmail "$(git config user.email)"
+checkName "$(git config user.name)"
 checkJava11TestsPrep
