@@ -2,7 +2,7 @@
 
 function checkEmail() {
 
-  EMAIL=$(git config user.email)
+  EMAIL=${1}
   EMAIL_LEN=${#EMAIL}
 
   EXPECTED_EMAIL_DOMAIN="@users.noreply.github.com"
@@ -10,17 +10,17 @@ function checkEmail() {
 
   if [[ ${EMAIL} != *"${EXPECTED_EMAIL_DOMAIN}" ]]
   then
-    echo 'email expected domain of '${EXPECTED_EMAIL_DOMAIN};
+    echo 'email expected domain of '\'${EXPECTED_EMAIL_DOMAIN}\';
     echo '';
     exit 1;
   fi
 
   if [[ "${EMAIL_LEN}" -le "${EXPECTED_EMAIL_DOMAIN_LEN}" ]]
   then
-    echo 'email missing username for '${EXPECTED_EMAIL_DOMAIN};
+    echo 'email missing username for '\'${EXPECTED_EMAIL_DOMAIN}\';
     echo '';
     exit 1;
   fi
 }
 
-checkEmail
+checkEmail "$(git config user.email)"
